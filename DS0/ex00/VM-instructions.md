@@ -1,5 +1,7 @@
 #
 
+apk add curl
+
 ## Entorno Grafico en Alpine
 setup-wayland-base labwc foot alacritty firefox mako
 rc-update add elogind boot
@@ -9,6 +11,27 @@ service dbus start
 apk add pam-rundir
 apk add font-dejavu font-noto font-awesome
 
+## Navegador para labwc
+```bash
+apk add epiphany
+```
+
+### Keyboard shortcuts
+I created the file ~/.config/labwc/rc.xml with this configuration
+
+Windows + b for Browser
+
+```xml
+
+<?xml version="1.0"?>
+<labwc_config>
+  <keyboard>
+    <keybind key="W-b">
+      <action name="Execute" command="epiphany" />
+    </keybind>
+  </keyboard>
+</labwc_config>
+```
 
 
 # Create user
@@ -99,5 +122,59 @@ create database piscineds;
 grant all privileges on database piscineds to luicasad;
 ```
 
+### Host-based Authentication
 
+The file `pg_hba.conf` defines a table with rules for postgresql about who can connect from where, to which database and using which identiy test.
+
+I changed 
+TYPE        DATABASE    USER        ADDRESS         METHOD
+host        all         all         127.0.0.1/32    scram-sha-256
+host        all         all         ::1/128     scram-sha-256
+
+to 
+
+host        piscineds       luicasad        127.0.0.1/32    scram-sha-256
+host        piscineds       luicasad        ::1/128         scram-sha-256
+
+cause:
+scram-sha-256 requiers a verified password
+host relates to a tcp/ip conneciton either encrypted or no.
+
+### Graphic customer
+
+#### Install PHP with PostgreSQL support
+```sh
+apk add php83 php83-pdo php83-pdo_pgsql php83-session php83-json php83-openssl
+```
+
+#### Download adminer
+
+```sh
+mkdir -p ~/adminer && cd ~/adminer
+curl -L https://www.adminer.org/latest.php -o adminer.php
+```
+#### Configure  bootable adminer rc-service
+
+I create the `/etc/init.d/adminer` as `su` with execution permission.
+```sh
+#!/sbin/openrc-run
+
+name="adminer"
+description="Servidor web de Adminer (PHP built-in server)"
+
+command="/usr/bin/php83"
+command_args="-S 127.0.0.1:8080 -t /home/luicasad/adminer"
+command_user="luicasad:users"
+command_background="yes"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+    need net
+}
+```
+
+I add it to boot runlevel
+```sh
+rc-update add adminer boot
+``` 
 
