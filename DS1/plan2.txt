@@ -1,0 +1,105 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Aggregate",
+      "Strategy": "Plain",
+      "Partial Mode": "Simple",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Actual Startup Time": 25186.804,
+      "Actual Total Time": 25186.807,
+      "Actual Rows": 1.00,
+      "Actual Loops": 1,
+      "Disabled": false,
+      "Output": ["count(*)"],
+      "Shared Hit Blocks": 4515,
+      "Shared Read Blocks": 169444,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 47769,
+      "Temp Written Blocks": 83620,
+      "Plans": [
+        {
+          "Node Type": "Aggregate",
+          "Strategy": "Hashed",
+          "Partial Mode": "Simple",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Actual Startup Time": 16735.361,
+          "Actual Total Time": 24403.506,
+          "Actual Rows": 15664171.00,
+          "Actual Loops": 1,
+          "Disabled": false,
+          "Output": ["customers.event_time", "customers.event_type", "customers.product_id", "customers.price", "customers.user_id", "customers.user_session"],
+          "Group Key": ["customers.event_time", "customers.event_type", "customers.product_id", "customers.price", "customers.user_id", "customers.user_session"],
+          "HashAgg Batches": 5,
+          "Peak Memory Usage": 1048641,
+          "Disk Usage": 383976,
+          "Shared Hit Blocks": 4515,
+          "Shared Read Blocks": 169444,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 47769,
+          "Temp Written Blocks": 83620,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "customers",
+              "Schema": "public",
+              "Alias": "customers",
+              "Actual Startup Time": 0.063,
+              "Actual Total Time": 2011.233,
+              "Actual Rows": 16532615.00,
+              "Actual Loops": 1,
+              "Disabled": false,
+              "Output": ["customers.event_time", "customers.event_type", "customers.product_id", "customers.price", "customers.user_id", "customers.user_session"],
+              "Shared Hit Blocks": 4515,
+              "Shared Read Blocks": 169444,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        }
+      ]
+    },
+    "Settings": {
+      "work_mem": "512MB"
+    },
+    "Planning": {
+      "Shared Hit Blocks": 113,
+      "Shared Read Blocks": 0,
+      "Shared Dirtied Blocks": 0,
+      "Shared Written Blocks": 0,
+      "Local Hit Blocks": 0,
+      "Local Read Blocks": 0,
+      "Local Dirtied Blocks": 0,
+      "Local Written Blocks": 0,
+      "Temp Read Blocks": 0,
+      "Temp Written Blocks": 0,
+      "Memory Used": 39,
+      "Memory Allocated": 64
+    },
+    "Planning Time": 2.331,
+    "Triggers": [
+    ],
+    "Execution Time": 25254.237
+  }
+]
